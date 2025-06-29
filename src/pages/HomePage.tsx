@@ -8,24 +8,27 @@ import {
   Button,
   CircularProgress,
   Container,
+  Pagination,
   Typography,
 } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 
 import { useGetPublicQuestionsQuery } from '../features/questions/questionsApi';
 
 function HomePage() {
   const navigate = useNavigate();
+  const [page, setPage] = useState(1);
 
   const { searchValue, specializationId, skills, rates, complexityRange } =
     useOutletContext();
 
   const params = {
-    page: 1,
+    page,
     limit: 10,
     title: searchValue,
     specialization: specializationId,
-    skillFilterMode: skills.length ? 'ANY' : '', // пример использования
+    skillFilterMode: skills.length ? 'ANY' : '',
     skills: skills.length ? skills.join(',') : undefined,
     rate: rates.length ? rates.join(',') : undefined,
     complexity: complexityRange ? complexityRange.join(',') : undefined,
@@ -36,6 +39,17 @@ function HomePage() {
   );
 
   const { data, isLoading, error } = useGetPublicQuestionsQuery(params);
+
+  useEffect(() => {
+    setPage(1);
+  }, [searchValue, specializationId, skills, rates, complexityRange]);
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+
+  const total = data?.total || 0;
+  const totalPages = Math.ceil(total / 10);
 
   return (
     <Container sx={{ mt: 4 }}>
@@ -79,6 +93,15 @@ function HomePage() {
           </AccordionDetails>
         </Accordion>
       ))}
+
+      {totalPages > 1 && (
+        <Pagination
+          count={totalPages}
+          page={page}
+          onChange={handlePageChange}
+          sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}
+        />
+      )}
     </Container>
   );
 }
