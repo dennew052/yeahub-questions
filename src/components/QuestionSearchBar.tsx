@@ -2,10 +2,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { IconButton, InputAdornment, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-interface QuestionSearchBarProps {
-  onDebouncedChange: (value: string) => void;
-  value: string;
-}
+import type { QuestionSearchBarProps } from './types';
 
 function QuestionSearchBar({
   onDebouncedChange,

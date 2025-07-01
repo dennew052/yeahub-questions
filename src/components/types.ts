@@ -76,3 +76,16 @@ export interface QuestionsListProps {
   isLoading?: boolean;
   error?: any;
 }
+
+export interface FiltersState {
+  searchValue: string;
+  specializationId: number | null;
+  skills: number[];
+  rates: number[];
+  complexityRange: number[] | null;
+}
+
+export interface QuestionSearchBarProps {
+  onDebouncedChange: (value: string) => void;
+  value: string;
+}

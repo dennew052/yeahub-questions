@@ -1,14 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 import type { RootState } from '../../app/store';
-
-interface FiltersState {
-  searchValue: string;
-  specializationId: number | null;
-  skills: number[];
-  rates: number[];
-  complexityRange: number[] | null;
-}
+import type { FiltersState } from '../../components/types';
 
 const initialState: FiltersState = {
   searchValue: '',

@@ -7,7 +7,6 @@ import { useGetPublicQuestionsQuery } from '../features/questions/questionsApi';
 function HomePage() {
   const queryParams = useSelector(selectQuestionsQueryParams);
 
-
   const { data, isLoading, isError } = useGetPublicQuestionsQuery({
     ...queryParams,
     page: 1,
