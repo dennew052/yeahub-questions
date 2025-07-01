@@ -2,8 +2,20 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { IconButton, InputAdornment, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-function QuestionSearchBar({ onDebouncedChange }) {
-  const [inputValue, setInputValue] = useState('');
+interface QuestionSearchBarProps {
+  onDebouncedChange: (value: string) => void;
+  value: string;
+}
+
+function QuestionSearchBar({
+  onDebouncedChange,
+  value,
+}: QuestionSearchBarProps) {
+  const [inputValue, setInputValue] = useState(value);
+
+  useEffect(() => {
+    setInputValue(value);
+  }, [value]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {

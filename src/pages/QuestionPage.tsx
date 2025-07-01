@@ -5,43 +5,19 @@ import {
   Container,
   Typography,
 } from '@mui/material';
-import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { useGetPublicQuestionsQuery } from '../features/questions/questionsApi';
+import { useGetPublicQuestionByIdQuery } from '../features/questions/questionsApi';
 
 function QuestionPage() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const { searchValue, specializationId, skills, rates, complexityRange } =
-    useOutletContext();
-
-  const queryParams = {
-    page: 1,
-    limit: 50,
-    title: searchValue,
-    specialization: specializationId,
-  };
-
-  if (skills?.length > 0) {
-    queryParams.skills = skills.join(',');
-  }
-
-  if (rates?.length > 0) {
-    queryParams.rate = rates.join(',');
-  }
-
-  if (complexityRange?.length > 0) {
-    queryParams.complexity = complexityRange.join(',');
-  }
-
   const {
-    data: questions,
+    data: question,
     isLoading,
     error,
-  } = useGetPublicQuestionsQuery(queryParams);
-
-  const question = questions?.data?.find((q) => q.id === Number(id));
+  } = useGetPublicQuestionByIdQuery(id ?? '');
 
   return (
     <Container sx={{ mt: 4 }}>
@@ -50,8 +26,12 @@ function QuestionPage() {
       </Button>
 
       {isLoading && <CircularProgress />}
-      {error && <Alert severity="error">Ошибка: {error.message}</Alert>}
-      {!question && !isLoading && (
+      {error && (
+        <Alert severity="error">
+          Ошибка: {'status' in error ? error.status : 'Ошибка запроса'}
+        </Alert>
+      )}
+      {!question && !isLoading && !error && (
         <Alert severity="info">Вопрос не найден</Alert>
       )}
 
