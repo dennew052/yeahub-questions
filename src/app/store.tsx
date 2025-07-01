@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import filtersReducer from '../features/filters/filtersSlice';
-import { questionsApi } from '../features/questions/questionsApi';
+import { questionsApi } from '../services/questionsApi';
 
 export const store = configureStore({
   reducer: {

@@ -4,7 +4,7 @@ import type {
   GetPublicQuestionsParams,
   Question,
   QuestionsResponse,
-} from '../../components/types';
+} from '../components/types';
 
 export const questionsApi = createApi({
   reducerPath: 'questionsApi',

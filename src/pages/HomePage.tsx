@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 import QuestionsList from '../components/QuestionsList';
 import { selectQuestionsQueryParams } from '../features/filters/filtersSlice';
-import { useGetPublicQuestionsQuery } from '../features/questions/questionsApi';
+import { useGetPublicQuestionsQuery } from '../services/questionsApi';
 
 function HomePage() {
   const queryParams = useSelector(selectQuestionsQueryParams);

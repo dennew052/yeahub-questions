@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { useGetPublicQuestionByIdQuery } from '../features/questions/questionsApi';
+import { useGetPublicQuestionByIdQuery } from '../services/questionsApi';
 
 function QuestionPage() {
   const { id } = useParams<{ id: string }>();
